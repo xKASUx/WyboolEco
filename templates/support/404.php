@@ -1,5 +1,5 @@
 <?php
 
-echo '404';
+echo 'Page not found - 404';
 
 ?>
