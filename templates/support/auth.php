@@ -7,19 +7,19 @@
 	<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900&display=swap" rel="stylesheet" />
 	<link rel="stylesheet" href="/assets/main.css">
 	<script src="/assets/tailwind.js"></script>
-	<link rel="shortcut icon" href="/public/images/favicon.ico" type="image/x-icon">
+	<link rel="shortcut icon" href="public/images/favicon.svg" type="image/x-icon">
 
 	<title>Авторизация</title>
 </head>
 <body>
 <div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
   <div class="sm:mx-auto sm:w-full sm:max-w-sm">
-    <img class="mx-auto h-10 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt="Your Company">
+    <img class="mx-auto h-10 w-auto" src="public/images/LogoForest.svg" alt="Вайбул Эко">
     <h2 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Войдите в ваш аккаунт</h2>
   </div>
 
   <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-    <form class="space-y-6" action="#" method="POST">
+    <form class="space-y-6" action="/sign-in" method="POST">
       <div>
         <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Почта</label>
         <div class="mt-2">

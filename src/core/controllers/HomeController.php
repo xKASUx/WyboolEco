@@ -23,4 +23,42 @@ class HomeController
     {
         $this->view->responseHtml('main.php');
     }
+
+    public function responseAuth() // Вывод страницы "Авторизация"
+    {
+        if (!isset($_SESSION['user'])) {
+            $this->view->responseHtml('support/auth.php');
+        } else {
+            header('Location: /profile');
+        }
+    }
+
+    public function responseReg() // Вывод страницы "Регистрация"
+    {
+        if (!isset($_SESSION['user'])) {
+            $this->view->responseHtml('support/reg.php');
+        } else {
+            header('Location: /profile');
+        }
+    }
+
+    public function handlerAuth() // Обработчик "Авторизация"
+    {
+        $this->supportService->handlerAuth($_POST);
+    }
+
+    public function handlerReg() // Обработчик "Регистрация"
+    {
+        $this->supportService->handlerReg($_POST);
+    }
+
+    public function handlerLogout() // Обработчик закрытия сессии
+    {
+        $this->supportService->handlerLogout();
+    }
+
+    public function responseProfile() // Вывод страницы "Личный кабинет"
+    {
+        $this->view->responseHtml('support/profile.php');
+    }
 }
