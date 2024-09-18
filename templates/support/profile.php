@@ -73,7 +73,7 @@
         		?>
 					</p>
 					<?php
-							if ($_SESSION['user']['ul_confirm'] == NULL) {
+							if ($_SESSION['user']['ul_confirm'] == NULL && $_SESSION['user']['role'] == 3) {
 								echo '
 									<a href="/ul-confirm" class="mt-3 inline-flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-600">Подтвердить роль организатора</a>
 								';
@@ -93,8 +93,46 @@
 			</div>
 			<?php endif; ?>
 
+			<?php
+				if($_SESSION['user']['role'] == 4):
+			?>
+			<div class="bg-white p-6 mb-10 rounded-lg shadow">
+				<span class="font-bold text-gray-500">Выбранные мероприятия</span>
+				<?php
+					foreach ($current_events as $ce):
+				?>
+				<div class="pt-5">
+					<a href="https://вайбул-эко.рф/card-detail/<?= $ce['event_id'] ?>">
+							<h1 class="text-xl font-semibold"><?= $ce['event_title'] ?> (+<?= $ce['event_points']?> баллов)</h1>
+							<?php
+						$dateString = $ce['event_date'];
+						$date = new DateTime($dateString);
+						$formattedDate = $date->format('j F, Y');
+						$months = [
+								'January' => 'января',
+								'February' => 'февраля',
+								'March' => 'марта',
+								'April' => 'апреля',
+								'May' => 'мая',
+								'June' => 'июня',
+								'July' => 'июля',
+								'August' => 'августа',
+								'September' => 'сентября',
+								'October' => 'октября',
+								'November' => 'ноября',
+								'December' => 'декабря'
+						];
+						$formattedDate = str_replace(array_keys($months), array_values($months), $formattedDate);
+				?>
+							<span class="text-blue-500 text-lg font-semibold">📅 <?= $formattedDate ?></span>
+					</a>
+				</div>
+				<? endforeach; ?>
+			</div>
+			<?php endif; ?>
+
 			<div class="bg-white p-6 rounded-lg shadow">
-				<h3 class="text-2xl font-semibold leading-6 text-gray-900 mb-6">Редактирование личных данных</h3>
+				<h3 class="text-2xl font-semibold leading-6 text-gray-900 mb-6">Редактирование данных</h3>
 				<form class="space-y-6" action="/update-profile" method="POST">
 					<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 						<div>

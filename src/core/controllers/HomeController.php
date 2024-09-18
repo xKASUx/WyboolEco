@@ -65,8 +65,10 @@ class HomeController
         if (!isset($_SESSION['user'])) {
             $this->view->responseHtml('support/auth.php');
         } else {
+            $current_events = $this->supportModel->getCurrentEvents();
             $this->view->responseHtml('support/profile.php', [
                 'role'=>$_SESSION['user']['role'],
+                'current_events'=>$current_events,
             ]);
         }
     }

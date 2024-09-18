@@ -64,6 +64,18 @@ class SupportModel
 
     public function getCards()
     {
-        return $this->db->query("SELECT * FROM `events`");
+        return $this->db->query("SELECT * FROM `events` ORDER BY `event_id` DESC LIMIT 6");
     }
+
+    public function getCurrentEvents() {
+        return $this->db->query("
+            SELECT e.* 
+            FROM `sh_event_user` seu
+            JOIN `events` e ON seu.event_id = e.event_id
+            WHERE seu.`user_id` = :user_id
+            ORDER BY e.`event_date` ASC
+        ", [
+            ':user_id' => $_SESSION['user']['id'],
+        ]);
+    }    
 }

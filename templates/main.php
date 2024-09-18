@@ -115,12 +115,35 @@
 </section>
 
 <!-- Секция "Карта с эко-проектами" -->
-<section class="bg-gray-100 flex flex-col items-center juctify-center">
+<section class="bg-gray-100 flex flex-col items-center juctify-center mb-10">
     <div class="container mx-auto px-6 text-center">
         <h2 class="text-3xl font-bold text-gray-800 mb-14">Не нашли ничего интересного для себя?<br>Проверьте нашу карту с эко-проектами, вы обязательно что-нибудь для себя найдете!</h2>
     </div>
     <div id="map"></div>
 </section>
+
+<!-- Подвал сайта (футер) -->
+<footer class="bg-gray-800 text-white py-8">
+    <div class="container mx-auto px-6 flex flex-col md:flex-row items-center justify-between">
+        <div class="flex flex-col items-center md:items-start mb-8 md:mb-0">
+            <a href="/" class="flex items-center mb-4 font-medium text-gray-900">
+                <img class="h-8 w-auto pr-2" src="public/images/LogoForest.svg" alt="Вайбул Эко">
+                <span class="text-green-400">Эко Вайбул</span>
+            </a>
+            <p class="text-gray-400 text-sm text-center md:text-left">
+                &copy; 2024 Эко Вайбул. Все права защищены.
+            </p>
+        </div>
+        
+        <div class="flex flex-col items-center md:items-end mb-8 md:mb-0">
+            <nav class="flex flex-col items-center md:items-end space-y-2">
+                <a href="/" class="text-gray-400 hover:text-white">Главная страница</a>
+                <a href="#projects" class="text-gray-400 hover:text-white">Актуальные мероприятия</a>
+                <a href="#map" class="text-gray-400 hover:text-white">Карта</a>
+                <a href="/contact" class="text-gray-400 hover:text-white">Контакты</a>
+            </nav>
+        </div>
+</footer>
 
 </body>
 </html>
