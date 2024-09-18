@@ -31,8 +31,9 @@ class SupportModel
         );
     }
 
-    public function handlerReg($name, $surname, $patronymic, $email, $phone, $password) {
-        $query = $this->db->query("INSERT INTO `users` (`user_name`, `user_surname`, `user_patronymic`, `user_phone`, `user_email`, `user_password`) VALUES (:name, :surname, :patronymic, :phone, :email, :password)", [
+    public function handlerReg($name, $surname, $patronymic, $email, $phone, $password, $role) {
+        $query = $this->db->query("INSERT INTO `users` (`user_role`, `user_name`, `user_surname`, `user_patronymic`, `user_phone`, `user_email`, `user_password`) VALUES (:role, :name, :surname, :patronymic, :phone, :email, :password)", [
+            ':role'=>$role,
             ':name'=>$name,
             ':surname'=>$surname,
             ':patronymic'=>$patronymic,
@@ -45,11 +46,24 @@ class SupportModel
 
         return [
             'user_id'=>$user_id,
-            'user_role'=>4,
+            'user_role'=>$role,
             'user_name'=>$name,
             'user_surname'=>$surname,
             'user_patronymic'=>$patronymic,
             'user_points'=>0,
         ];
+    }
+
+    public function handlerUlConfirm()
+    {
+        return $this->db->query(
+            "UPDATE `users` SET `user_ul_confirm` = 1 WHERE `user_id` = :user_id",
+            [':user_id' => $_SESSION['user']['id']],
+        );
+    }    
+
+    public function getCards()
+    {
+        return $this->db->query("SELECT * FROM `events`");
     }
 }

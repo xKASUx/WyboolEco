@@ -21,7 +21,10 @@ class HomeController
 
     public function responseHome() // Вывод страницы "Главная"
     {
-        $this->view->responseHtml('main.php');
+        $cards = $this->supportModel->getCards();
+        $this->view->responseHtml('main.php', [
+            'cards'=>$cards,
+        ]);
     }
 
     public function responseAuth() // Вывод страницы "Авторизация"
@@ -56,9 +59,27 @@ class HomeController
     {
         $this->supportService->handlerLogout();
     }
-
+    
     public function responseProfile() // Вывод страницы "Личный кабинет"
     {
-        $this->view->responseHtml('support/profile.php');
+        if (!isset($_SESSION['user'])) {
+            $this->view->responseHtml('support/auth.php');
+        } else {
+            $this->view->responseHtml('support/profile.php', [
+                'role'=>$_SESSION['user']['role'],
+            ]);
+        }
+    }
+    
+    public function handlerUlConfirm() // Обработчик подтверждения организации
+    {
+        $query = $this->supportService->handlerUlConfirm();
+
+        if($query) {
+            session_start();
+            $_SESSION['user']['ul_confirm'] = 1;
+        };
+
+        header('Location: /profile');
     }
 }

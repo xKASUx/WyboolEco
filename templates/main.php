@@ -5,33 +5,47 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900&display=swap" rel="stylesheet" />
-	<link rel="stylesheet" href="/assets/main.css">
+	<link rel="stylesheet" href="/assets/css/main.css">
 	<script src="/assets/tailwind.js"></script>
 	<link rel="shortcut icon" href="public/images/favicon.svg" type="image/x-icon">
 
 	<title>Главная страница</title>
+    <script src="//api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
+    <script src="assets/map.js" type="text/javascript"></script>
 </head>
 <body>
 
 <!-- Шапка сайта (хедер) -->
-<header class="w-full mt-5 text-gray-700 bg-white border-t border-gray-100 shadow-sm body-font">
+<header class="w-full text-gray-700 bg-white border-t border-gray-100 shadow-sm body-font">
         <div class="container flex flex-col items-start justify-between p-6 mx-auto md:flex-row">
-            <a href="#" class="flex items-center mb-4 font-medium text-gray-900 title-font md:mb-0">
+            <a href="/" class="flex items-center mb-4 font-medium text-gray-900 title-font md:mb-0">
             <img class="mx-auto h-8 w-auto pr-2" src="public/images/LogoForest.svg" alt="Вайбул Эко">
             <span class="text-green-700">Эко Вайбул</span>
             </a>
-            <nav class="flex flex-wrap items-center justify-center pl-24 text-base md:ml-auto md:mr-auto">
-                <a href="#" class="mr-5 font-medium hover:text-gray-900">Главная страница</a>
-                <a href="#" class="mr-5 font-medium hover:text-gray-900">О нас</a>
-                <a href="#" class="font-medium hover:text-gray-900">Контакты</a>
+            <nav class="flex flex-wrap items-center justify-center text-base">
+                <a href="/" class="mr-5 font-medium hover:text-gray-900">Главная страница</a>
+                <a href="#projects" class="mr-5 font-medium hover:text-gray-900">Актуальные мероприятия</a>
+                <a href="#map" class="font-medium hover:text-gray-900">Карта</a>
             </nav>
-            <div class="items-center h-full">
-                <a href="#" class="mr-5 font-medium hover:text-gray-900">Регистрация</a>
-                <a href="#"
-                    class="px-4 py-2 text-xs font-bold text-white uppercase transition-all duration-150 bg-green-700 rounded shadow outline-none active:bg-teal-600 hover:shadow-md focus:outline-none ease">
-                    Войти
-                </a>
-            </div>
+            <?php
+                if(!isset($_SESSION['user'])) {
+                    echo '
+                    <div class="items-center h-full">
+                        <a href="/reg" class="mr-5 font-medium hover:text-gray-900">Регистрация</a>
+                        <a href="/auth"
+                            class="px-4 py-2 text-xs font-bold text-white uppercase transition-all duration-150 bg-green-700 rounded shadow outline-none active:bg-teal-600 hover:shadow-md focus:outline-none ease">
+                            Войти
+                        </a>
+                    </div>';
+                } else {
+                    echo '
+                    <a href="/profile"
+                        class="px-4 py-2 text-xs font-bold text-white uppercase transition-all duration-150 bg-green-700 rounded shadow outline-none active:bg-teal-600 hover:shadow-md focus:outline-none ease">
+                        Профиль
+                    </a>
+                    ';
+                }
+            ?>
         </div>
 </header>
 
@@ -52,113 +66,60 @@
     </div>
 </section>
 
-<!-- Секция "Популярные эко-проекты" -->
-<section class="relative bg-cover bg-center h-screen">
-    <h2 class="text-center text-gray-500 text-5xl mt-20">Самые популярные экопроекты Москвы!</h2>
-<div class="flex flex-wrap gap-20 items-start justify-center  mt-[-150px]">
-    
-    <div class="flex justify-center items-center min-h-screen">
-        <div class="max-w-[720px] mx-auto">
-           
-            <!-- Centering wrapper -->
-            <div class="relative flex flex-col text-gray-700 bg-white shadow-md bg-clip-border rounded-xl w-140">
-                <div class="relative mx-4 mt-4 overflow-hidden text-gray-700 bg-white bg-clip-border rounded-xl h-96">
-                    <img
-                        src="https://images.unsplash.com/photo-1629367494173-c78a56567877?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=927&amp;q=80"
-                        alt="card-image" class="object-cover w-full h-full" />
-                </div>
+ <!-- Секция "Популярные эко-проекты" -->
+<section class="bg-gray-100 py-12" id="projects">
+    <div class="container mx-auto px-6 text-center">
+        <h2 class="text-3xl font-bold text-gray-800 mb-14">Популярные эко-проекты</h2>
+        <div class="grid gap-8 md:grid-cols-3">
+
+            <?php
+                foreach($cards as $card):
+            ?>
+            <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                <img class="w-full h-[350px] object-cover" src="public/images/<?= $card['event_img'] ?>" alt="Проект 1">
                 <div class="p-6">
-                    <div class="flex items-center justify-between mb-2">
-                        <p class="block font-sans text-base antialiased font-medium leading-relaxed text-blue-gray-900">
-                            Apple AirPods
-                        </p>
-                        <p class="block font-sans text-base antialiased font-medium leading-relaxed text-blue-gray-900">
-                            $95.00
-                        </p>
-                    </div>
-                    <p class="block font-sans text-sm antialiased font-normal leading-normal text-gray-700 opacity-75">
-                        With plenty of talk and listen time, voice-activated Siri access, and an
-                        available wireless charging case.
-                    </p>
-                </div>
-                <div class="p-6 pt-0">
-                    <button
-                        class="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 px-6 rounded-lg shadow-gray-900/10 hover:shadow-gray-900/20 focus:opacity-[0.85] active:opacity-[0.85] active:shadow-none block w-full bg-blue-gray-900/10 text-blue-gray-900 shadow-none hover:scale-105 hover:shadow-none focus:scale-105 focus:shadow-none active:scale-100"
-                        type="button">
-                        Add to Cart
-                    </button>
+                    <h3 class="text-xl font-bold text-gray-800"><?= $card['event_title'] ?></h3>
+                    <p class="mt-2 text-gray-600"><?= $card['event_description'] ?></p>
+                    <?php
+                        $dateString = $card['event_date'];
+                        $date = new DateTime($dateString);
+                        $formattedDate = $date->format('j F, Y');
+                        $months = [
+                            'January' => 'января',
+                            'February' => 'февраля',
+                            'March' => 'марта',
+                            'April' => 'апреля',
+                            'May' => 'мая',
+                            'June' => 'июня',
+                            'July' => 'июля',
+                            'August' => 'августа',
+                            'September' => 'сентября',
+                            'October' => 'октября',
+                            'November' => 'ноября',
+                            'December' => 'декабря'
+                        ];
+                        $formattedDate = str_replace(array_keys($months), array_values($months), $formattedDate);
+                        echo '<p class="mt-2 text-gray-500 text-sm">Дата: ' . $formattedDate . '</p>';
+                    ?>
+                    <a href="/card-detail/<?= $card['event_id'] ?>"
+                        class="inline-block mt-4 px-4 py-2 text-white bg-green-700 hover:bg-green-600 rounded-md font-semibold transition duration-150 ease-in-out">
+                        Перейти на событие
+                    </a>
                 </div>
             </div>
+            <?php
+                endforeach;
+            ?>
         </div>
     </div>
-    <div class="flex justify-center items-center min-h-screen">
-        <div class="max-w-[720px] mx-auto">    
-            <!-- Centering wrapper -->
-            <div class="relative flex flex-col text-gray-700 bg-white shadow-md bg-clip-border rounded-xl w-140">
-                <div class="relative mx-4 mt-4 overflow-hidden text-gray-700 bg-white bg-clip-border rounded-xl h-96">
-                    <img
-                        src="https://images.unsplash.com/photo-1629367494173-c78a56567877?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=927&amp;q=80"
-                        alt="card-image" class="object-cover w-full h-full" />
-                </div>
-                <div class="p-6">
-                    <div class="flex items-center justify-between mb-2">
-                        <p class="block font-sans text-base antialiased font-medium leading-relaxed text-blue-gray-900">
-                            Apple AirPods
-                        </p>
-                        <p class="block font-sans text-base antialiased font-medium leading-relaxed text-blue-gray-900">
-                            $95.00
-                        </p>
-                    </div>
-                    <p class="block font-sans text-sm antialiased font-normal leading-normal text-gray-700 opacity-75">
-                        With plenty of talk and listen time, voice-activated Siri access, and an
-                        available wireless charging case.
-                    </p>
-                </div>
-                <div class="p-6 pt-0">
-                    <button
-                        class="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 px-6 rounded-lg shadow-gray-900/10 hover:shadow-gray-900/20 focus:opacity-[0.85] active:opacity-[0.85] active:shadow-none block w-full bg-blue-gray-900/10 text-blue-gray-900 shadow-none hover:scale-105 hover:shadow-none focus:scale-105 focus:shadow-none active:scale-100"
-                        type="button">
-                        Add to Cart
-                    </button>
-                </div>
-            </div>
-        </div>
+</section>
+
+<!-- Секция "Карта с эко-проектами" -->
+<section class="bg-gray-100 flex flex-col items-center juctify-center">
+    <div class="container mx-auto px-6 text-center">
+        <h2 class="text-3xl font-bold text-gray-800 mb-14">Не нашли ничего интересного для себя?<br>Проверьте нашу карту с эко-проектами, вы обязательно что-нибудь для себя найдете!</h2>
     </div>
-    <div class="flex justify-center items-center min-h-screen">
-        <div class="max-w-[720px] mx-auto">
-    
-            <!-- Centering wrapper -->
-            <div class="relative flex flex-col text-gray-700 bg-white shadow-md bg-clip-border rounded-xl w-140">
-                <div class="relative mx-4 mt-4 overflow-hidden text-gray-700 bg-white bg-clip-border rounded-xl h-96">
-                    <img
-                        src="https://images.unsplash.com/photo-1629367494173-c78a56567877?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=927&amp;q=80"
-                        alt="card-image" class="object-cover w-full h-full" />
-                </div>
-                <div class="p-6">
-                    <div class="flex items-center justify-between mb-2">
-                        <p class="block font-sans text-base antialiased font-medium leading-relaxed text-blue-gray-900">
-                            Apple AirPods
-                        </p>
-                        <p class="block font-sans text-base antialiased font-medium leading-relaxed text-blue-gray-900">
-                            $95.00
-                        </p>
-                    </div>
-                    <p class="block font-sans text-sm antialiased font-normal leading-normal text-gray-700 opacity-75">
-                        With plenty of talk and listen time, voice-activated Siri access, and an
-                        available wireless charging case.
-                    </p>
-                </div>
-                <div class="p-6 pt-0">
-                    <button
-                        class="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 px-6 rounded-lg shadow-gray-900/10 hover:shadow-gray-900/20 focus:opacity-[0.85] active:opacity-[0.85] active:shadow-none block w-full bg-blue-gray-900/10 text-blue-gray-900 shadow-none hover:scale-105 hover:shadow-none focus:scale-105 focus:shadow-none active:scale-100"
-                        type="button">
-                        Add to Cart
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+    <div id="map"></div>
 </section>
 
 </body>

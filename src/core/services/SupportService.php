@@ -33,6 +33,10 @@ class SupportService
                 $_SESSION['user']['name'] = $data[0]['user_name'];
                 $_SESSION['user']['surname'] = $data[0]['user_surname'];
                 $_SESSION['user']['patronymic'] = $data[0]['user_patronymic'];
+                $_SESSION['user']['phone'] = $data[0]['user_phone'];
+                $_SESSION['user']['email'] = $data[0]['user_email'];
+                $_SESSION['user']['password'] = $data[0]['user_password'];
+                $_SESSION['user']['ul_confirm'] = $data[0]['user_ul_confirm'];
                 $_SESSION['user']['points'] = $data[0]['user_points'];
                 if (empty($_SESSION['user'])) {
                     header('Location: /auth');
@@ -53,6 +57,7 @@ class SupportService
         $phone = $data['phone'];
         $password = $data['password'];
         $confirm_password = $data['confirm_password'];
+        $role = $data['role'];
 
         $dataCheckEmail = $this->supportModel->checkEmail($email);
 
@@ -66,18 +71,24 @@ class SupportService
                     $patronymic = NULL;
                 }
 
-                if ($phone == '') {
+                if ($phone == '+7 (___) ___-__-__') {
                     $phone = NULL;
                 }
 
-                $query = $this->supportModel->handlerReg($name, $surname, $patronymic, $email, $phone, $password);
+                $this->supportModel->handlerReg($name, $surname, $patronymic, $email, $phone, $password, $role);
 
-                $_SESSION['user']['id'] = $data['user_id'];
-                $_SESSION['user']['role'] = $data['user_role'];
-                $_SESSION['user']['name'] = $data['user_name'];
-                $_SESSION['user']['surname'] = $data['user_surname'];
-                $_SESSION['user']['patronymic'] = $data['user_patronymic'];
-                $_SESSION['user']['points'] = $data['user_points'];
+                $data = $this->supportModel->checkSign($email);
+
+                $_SESSION['user']['id'] = $data[0]['user_id'];
+                $_SESSION['user']['role'] = $data[0]['user_role'];
+                $_SESSION['user']['name'] = $data[0]['user_name'];
+                $_SESSION['user']['surname'] = $data[0]['user_surname'];
+                $_SESSION['user']['patronymic'] = $data[0]['user_patronymic'];
+                $_SESSION['user']['phone'] = $data[0]['user_phone'];
+                $_SESSION['user']['email'] = $data[0]['user_email'];
+                $_SESSION['user']['password'] = $data[0]['user_password'];
+                $_SESSION['user']['ul_confirm'] = $data[0]['user_ul_confirm'];
+                $_SESSION['user']['points'] = $data[0]['user_points'];
                 if (empty($_SESSION['user'])) {
                     header('Location: /auth');
                 } else {
@@ -93,5 +104,40 @@ class SupportService
         session_unset();
         session_destroy();
         header('Location: /auth');
+    }
+
+    public function handlerUlConfirm() // Обработчик подтверждения организации
+    {
+        $updated = $this->supportModel->handlerUlConfirm();
+
+        session_start();
+        $user_id = $_SESSION['user']['id'];
+        $user_role = $_SESSION['user']['role'];
+        $user_surname = $_SESSION['user']['surname'];
+        $user_name = $_SESSION['user']['name'];
+        $user_patronymic = $_SESSION['user']['patronymic'];
+        $user_phone = $_SESSION['user']['phone'];
+        $user_email = $_SESSION['user']['email'];
+        $user_password = $_SESSION['user']['password'];
+        $user_points = $_SESSION['user']['points'];
+        $user_ul_confirm = $_SESSION['user']['ul_confirm'];
+
+        session_unset();
+        session_destroy();
+
+        session_start();
+
+        $_SESSION['user']['id'] = $user_id;
+        $_SESSION['user']['role'] = $user_role;
+        $_SESSION['user']['surname'] = $user_surname;
+        $_SESSION['user']['name'] = $user_name;
+        $_SESSION['user']['patronymic'] = $user_patronymic;
+        $_SESSION['user']['phone'] = $user_phone;
+        $_SESSION['user']['email'] = $user_email;
+        $_SESSION['user']['password'] = $user_password;
+        $_SESSION['user']['points'] = $user_points;
+        $_SESSION['user']['ul_confirm'] = 1;
+        
+        header('Location: /profile');
     }
 }
