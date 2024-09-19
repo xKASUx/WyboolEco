@@ -72,15 +72,21 @@
       </div>
 			<span class="text-gray-500 text-xl font-semibold">Место проведения</span><br><br>
 			<div id="map" class="mt-5"></div>
-			<?php
-				if($_SESSION['user']['role'] == 4):
-			?>
-      <a href="/events/part/<?= $event['event_id'] ?>" class="mt-10 flex justify-center items-center btn inline-block px-8 py-3 bg-indigo-600 text-white text-lg font-semibold rounded-full shadow-md hover:bg-indigo-500 transition">
-        Участвовать
-      </a>
-			<?php
-				endif;
-			?>
+					<?php
+		if (isset($_SESSION['user']) && isset($_SESSION['user']['role'])) {
+		    if ($_SESSION['user']['role'] == 4) {
+		        ?>
+		        <a href="/events/part/<?= $event['event_id'] ?>" class="mt-10 flex justify-center items-center btn inline-block px-8 py-3 		bg-indigo-600 text-white text-lg font-semibold rounded-full shadow-md hover:bg-indigo-500 transition">
+		            Участвовать
+		        </a>
+		        <?php
+		    } else {
+		        echo '';
+		    }
+		} else {
+		    echo '';
+		}
+		?>
     </div>
   </div>
     </div>

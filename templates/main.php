@@ -24,6 +24,7 @@
             </a>
             <nav class="flex flex-wrap items-center justify-center text-base">
                 <a href="/" class="mr-5 font-medium hover:text-gray-900">Главная страница</a>
+                <a href="/eco-market" class="mr-5 font-medium hover:text-gray-900">Эко-маркет</a>
                 <a href="#projects" class="mr-5 font-medium hover:text-gray-900">Актуальные мероприятия</a>
                 <a href="#map" class="font-medium hover:text-gray-900">Карта</a>
             </nav>
@@ -117,7 +118,7 @@
 <!-- Секция "Карта с эко-проектами" -->
 <section class="bg-gray-100 flex flex-col items-center juctify-center mb-10">
     <div class="container mx-auto px-6 text-center">
-        <h2 class="text-3xl font-bold text-gray-800 mb-14">Не нашли ничего интересного для себя?<br>Проверьте нашу карту с эко-проектами, вы обязательно что-нибудь для себя найдете!</h2>
+        <h2 class="text-3xl font-bold text-gray-800 mb-14">Карта <span class="text-green-600">Москвы</span> со всеми эко-активностями</h2>
     </div>
     <div id="map"></div>
 </section>
