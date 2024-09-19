@@ -72,21 +72,59 @@
       </div>
 			<span class="text-gray-500 text-xl font-semibold">Место проведения</span><br><br>
 			<div id="map" class="mt-5"></div>
-					<?php
-		if (isset($_SESSION['user']) && isset($_SESSION['user']['role'])) {
-		    if ($_SESSION['user']['role'] == 4) {
-		        ?>
-		        <a href="/events/part/<?= $event['event_id'] ?>" class="mt-10 flex justify-center items-center btn inline-block px-8 py-3 		bg-indigo-600 text-white text-lg font-semibold rounded-full shadow-md hover:bg-indigo-500 transition">
-		            Участвовать
-		        </a>
-		        <?php
-		    } else {
-		        echo '';
-		    }
-		} else {
-		    echo '';
-		}
-		?>
+			<?php
+    if (isset($_SESSION['user']) && isset($_SESSION['user']['role'])) {
+        if ($_SESSION['user']['role'] == 4) {
+            $currentDate = new DateTime();
+						$eventDate = new DateTime($dateString);
+            if ($currentDate->format('Y-m-d') <= $eventDate->format('Y-m-d')) {
+                ?>
+                <a href="/events/part/<?= $event['event_id'] ?>" class="mt-10 flex justify-center items-center btn inline-block px-8 py-3 bg-indigo-600 text-white text-lg font-semibold rounded-full shadow-md hover:bg-indigo-500 transition">
+                    Участвовать
+                </a>
+                <?php
+            } else {
+							?>
+							<span class="mt-10 flex justify-center items-center btn inline-block px-8 py-3 bg-red-600 text-white text-lg font-semibold rounded-full shadow-md hover:bg-red-500 transition">
+                    Мероприятие проведено
+							</span>
+							<?php
+						}
+        }
+    }
+    ?>
+		<div class="mt-10">
+    <div class="rating">
+        <h2 class="text-2xl font-semibold text-gray-800">Оцените мероприятие:</h2>
+        <div class="flex space-x-2 mt-4">
+            <span class="star" data-value="1">⭐</span>
+            <span class="star" data-value="2">⭐</span>
+            <span class="star" data-value="3">⭐</span>
+            <span class="star" data-value="4">⭐</span>
+            <span class="star" data-value="5">⭐</span>
+        </div>
+        <p class="text-gray-600 text-sm mt-2">Средний рейтинг: 4.5/5 (20 голосов)</p>
+    </div>
+
+    <div class="comments mt-10">
+        <h2 class="text-2xl font-semibold text-gray-800">Комментарии</h2>
+        <div class="mt-4">
+            <div class="comment mb-6">
+                <p class="text-gray-800 font-semibold">Иван Иванов</p>
+                <p class="text-gray-600">Отличное мероприятие! Получил много полезной информации.</p>
+            </div>
+            <div class="comment mb-6">
+                <p class="text-gray-800 font-semibold">Анна Смирнова</p>
+                <p class="text-gray-600">Организация на высшем уровне. Спасибо!</p>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-800 mt-6">Оставить комментарий</h3>
+            <form action="/events/comment" method="POST" class="mt-4">
+                <textarea name="comment" rows="4" class="w-full border-gray-300 rounded-md p-3" placeholder="Ваш комментарий..."></textarea>
+                <button type="submit" class="mt-4 px-6 py-2 bg-green-600 text-white rounded-md hover:bg-green-500">Отправить</button>
+            </form>
+        </div>
+    </div>
+</div>
     </div>
   </div>
     </div>
@@ -147,4 +185,13 @@ $jsonArray = json_encode($event);
 				myMap.geoObjects.add(myPlacemark);
         }
     </script>
+		<script>
+    const stars = document.querySelectorAll('.star');
+    stars.forEach(star => {
+        star.addEventListener('click', function() {
+            const rating = this.getAttribute('data-value');
+            alert('Вы поставили оценку: ' + rating + ' звёзд');
+        });
+    });
+</script>
 </html>
