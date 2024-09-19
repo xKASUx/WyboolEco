@@ -13,6 +13,7 @@ return [
     '~^events/add-page$~' => [\core\controllers\EventController::class, 'responseCreateEvent'], // Страница "Редактирование мероприятия"
     '~^events/points-page/(.*)$~' => [\core\controllers\EventController::class, 'responsePointsEvent'], // Страница выдачи баллов экоактивистам
     '~^card-detail/(.*)$~' => [\core\controllers\EventController::class, 'responseCardDetail'], // Страница "Редактирование мероприятия"
+    '~^eco-market$~' => [\core\controllers\HomeController::class, 'responseEcoMarket'], // Страница "Эко Маркет"
 
     '~^sign-in$~' => [\core\controllers\HomeController::class, 'handlerAuth'], // Обработчик "Авторизация"
     '~^sign-up$~' => [\core\controllers\HomeController::class, 'handlerReg'], // Обработчик "Регистрация"

@@ -84,4 +84,9 @@ class HomeController
 
         header('Location: /profile');
     }
+
+    public function responseEcoMarket()
+    {
+        $this->view->responseHtml('eco-market.php');
+    }
 }
